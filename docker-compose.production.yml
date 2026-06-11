@@ -1,20 +1,20 @@
 volumes:
-  pg_data:
-  static:
-  media:
+  pg_data_production:
+  static_production:
+  media_production:
 
 services:
   db:
     image: postgres:13.10
     env_file: .env
     volumes:
-      - pg_data:/var/lib/postgresql/data
+      - pg_data_production:/var/lib/postgresql/data
   backend:
     image: quassider/kittygram_backend
     env_file: .env
     volumes:
-      - static:/backend_static
-      - media:/app/media
+      - static_production:/backend_static
+      - media_production:/app/media
     depends_on:
       - db
   frontend:
@@ -22,12 +22,12 @@ services:
     image: quassider/kittygram_frontend
     command: cp -r /app/build/. /frontend_static/
     volumes:
-      - static:/frontend_static
+      - static_production:/frontend_static
   gateway:
     image: quassider/kittygram_gateway
     env_file: .env
     ports:
       - 9000:80
     volumes:
-      - static:/static
-      - media:/media
+      - static_production:/static
+      - media_production:/media
