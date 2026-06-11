@@ -14,7 +14,7 @@ services:
     env_file: .env
     volumes:
       - static:/backend_static
-      - media:/app/media/cats/image
+      - media:/app/media/cats/images
     depends_on:
       - db
   frontend:
